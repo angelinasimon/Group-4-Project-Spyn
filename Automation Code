@@ -1,0 +1,25 @@
+
+while 1        %makes an infinite loop
+  distance = brick.UltrasonicDist(4);
+  brick.MoveMotor('AD', 20);%starts both motors at 10% speed
+  touch = brick.TouchPressed(3);
+  number = 20;
+  if ((distance <= number) && (touch))    %if the car reaches minimum distance to a wall that requires turning
+      disp("touch");
+      brick.StopMotor('AD','Brake');%car slows to a stp
+      brick.MoveMotor('AD', -20);
+      pause(2);
+      brick.MoveMotor('A', 20);       %turns for two seconds
+      pause(2);
+      brick.StopMotor('AD','Brake');
+      brick.MoveMotor('AD', 20);      %starts moving straight again           
+  end
+  if ((distance <= number) && ~(touch))
+      brick.StopMotor('AD','Brake'); 
+      pause(2);
+      brick.MoveMotor('D', 10);       %turns for two seconds
+      pause(2);
+      brick.StopMotor('AD','Brake');
+      brick.MoveMotor('AD', 20);
+  end
+end
