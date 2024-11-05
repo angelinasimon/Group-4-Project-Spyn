@@ -1,42 +1,89 @@
 while 1  %makes an infinite loop
+    %{
 number = 50;
 number2 = 65;
 touch = brick.TouchPressed(2);
 disp(touch);
 distance = brick.UltrasonicDist(4);
-  brick.MoveMotor('AD', 40);%starts both motors at 20% speed
- 
+    %}
+color = brick.ColorCode(1);
+brick.SetColorMode(1, 2);
+         brick.MoveMotor('AD', 20);%starts both motors at 20% speed
+disp(color);
+%{
 if (distance >= number2)
-    pause(0.65);
-    brick.StopMotor('AD','Brake');
-    brick.MoveMotor('A', 20);       %turns for two seconds
-    pause(2.05);
-    brick.StopMotor('AD','Brake');
-    pause(0.5);
-    brick.MoveMotor('AD', 30);
-    pause(3);
-end    
+   pause(0.65);
+   brick.StopMotor('AD','Brake');
+   brick.MoveMotor('A', 20);       %turns for two seconds
+   pause(2.05);
+   brick.StopMotor('AD','Brake');
+   pause(0.5);
+   brick.MoveMotor('AD', 30);
+   pause(3);
+end   
 if ((touch) && (distance <= number))    %if the car reaches minimum distance to a wall that requires turning
-    pause(0.2);
-    disp("touch");
-    brick.StopMotor('AD','Brake');%car slows to a stp
-    brick.MoveMotor('AD', -20);
-    pause(2.38);
-    brick.MoveMotor('D', 10);       %turns for two seconds
-    pause(1.762);
-    brick.StopMotor('AD','Brake');
-    pause(0.5);
-end      
+   pause(0.2);
+   disp("touch");
+   brick.StopMotor('AD','Brake');%car slows to a stp
+   brick.MoveMotor('AD', -20);
+   pause(2.38);
+   brick.MoveMotor('D', 10);       %turns for two seconds
+   pause(1.762);
+   brick.StopMotor('AD','Brake');
+   pause(0.5);
+end     
 if ((touch) && (distance > number))
-    pause(0.5);
-    brick.StopMotor('AD','Brake');
-    brick.MoveMotor('AD', -20);
-    pause(2.38);
-    brick.MoveMotor('A', 10);       %turns for two seconds
-    pause(1.762);
-    brick.StopMotor('AD','Brake');
-    pause(0.5);
-    brick.MoveMotor('AD', 30);
-    pause(0.5);
+   pause(0.5);
+   brick.StopMotor('AD','Brake');
+   brick.MoveMotor('AD', -20);
+   pause(2.38);
+   brick.MoveMotor('A', 10);       %turns for two seconds
+   pause(1.762);
+   brick.StopMotor('AD','Brake');
+   pause(0.5);
+   brick.MoveMotor('AD', 30);
+   pause(0.5);
+end
+%}
+if (color == 5)
+   brick.StopMotor('AD','Brake');
+   pause(1.5);
+   brick.MoveMotor('AD', 20);
+   pause(4);
+end   
+if (color == 2)
+   brick.StopMotor('AD','Brake');
+   brick.beep();
+   pause(0.5);
+   brick.beep();
+   pause(0.5);
+   brick.MoveMotor('AD', -10);
+   pause(4);
+  
+end
+if (color == 3)
+   brick.StopMotor('AD','Brake');
+   brick.beep();
+   pause(0.5);
+   brick.beep();
+   pause(0.5);
+   brick.beep();
+   pause(0.5);
+   brick.MoveMotor('AD', -10);
+   pause(4);
+ end
+if (color == 4)
+   brick.StopMotor('AD','Brake');
+   brick.beep();
+   pause(0.5);
+   brick.beep();
+   pause(0.5);
+   brick.beep();
+   pause(0.5);
+   brick.beep();
+   pause(0.5);
+   brick.MoveMotor('AD', -10);
+   pause(4);
+ 
 end
 end
