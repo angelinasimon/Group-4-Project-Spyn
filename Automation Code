@@ -1,34 +1,38 @@
 while 1  %makes an infinite loop
-    %{
+global key;
+InitKeyboard();
 number = 50;
 number2 = 65;
 touch = brick.TouchPressed(2);
 disp(touch);
-distance = brick.UltrasonicDist(4);
-    %}
+distance = brick.UltrasonicDist(4); 
 color = brick.ColorCode(1);
 brick.SetColorMode(1, 2);
-         brick.MoveMotor('AD', 20);%starts both motors at 20% speed
+brick.MoveMotor('A', 39.6);
+brick.MoveMotor('D', 40);
+%starts both motors at 40% speed
 disp(color);
-%{
+x = 0;
+
 if (distance >= number2)
-   pause(0.65);
-   brick.StopMotor('AD','Brake');
-   brick.MoveMotor('A', 20);       %turns for two seconds
-   pause(2.05);
-   brick.StopMotor('AD','Brake');
-   pause(0.5);
-   brick.MoveMotor('AD', 30);
-   pause(3);
+  pause(0.6);
+  brick.StopMotor('AD','Brake');
+  brick.MoveMotor('A', 20); 
+  pause(1.65);
+  brick.StopMotor('AD','Brake');%turns for two seconds
+  pause(0.5);
+  brick.MoveMotor('AD', 30);
+  pause(3.0);
 end   
 if ((touch) && (distance <= number))    %if the car reaches minimum distance to a wall that requires turning
-   pause(0.2);
+   pause(0.3);
    disp("touch");
    brick.StopMotor('AD','Brake');%car slows to a stp
-   brick.MoveMotor('AD', -20);
-   pause(2.38);
+   brick.MoveMotor('D', -20);
+   brick.MoveMotor('A', -20)
+   pause(1.67);
    brick.MoveMotor('D', 10);       %turns for two seconds
-   pause(1.762);
+   pause(1.7);
    brick.StopMotor('AD','Brake');
    pause(0.5);
 end     
@@ -36,100 +40,102 @@ if ((touch) && (distance > number))
    pause(0.5);
    brick.StopMotor('AD','Brake');
    brick.MoveMotor('AD', -20);
-   pause(2.38);
+   pause(1.9);
    brick.MoveMotor('A', 10);       %turns for two seconds
-   pause(1.762);
+   pause(1.5);
    brick.StopMotor('AD','Brake');
    pause(0.5);
    brick.MoveMotor('AD', 30);
    pause(0.5);
 end
-%}
-if (color == 5)
-   brick.StopMotor('AD','Brake');
-   pause(1.5);
-   brick.MoveMotor('AD', 20);
-   pause(4);
-end   
-if (color == 2)
-   brick.StopMotor('AD','Brake');
-   brick.beep();
-   pause(0.5);
-   brick.beep();
-   pause(0.5);
-   brick.MoveMotor('AD', -10);
-   pause(4);
-  
-end
-if (color == 3)
-   brick.StopMotor('AD','Brake');
-   brick.beep();
-   pause(0.5);
-   brick.beep();
-   pause(0.5);
-   brick.beep();
-   pause(0.5);
-   brick.MoveMotor('AD', -10);
-   pause(4);
- end
-if (color == 4)
-   brick.StopMotor('AD','Brake');
-   brick.beep();
-   pause(0.5);
-   brick.beep();
-   pause(0.5);
-   brick.beep();
-   pause(0.5);
-   brick.beep();
-   pause(0.5);
-   brick.MoveMotor('AD', -10);
-   pause(4);
- 
-end
-end
-
-
-
-
-
-global key;
-
-InitKeyboard();
-
-while 1
-  
-    switch key
-        case 'uparrow'
-            disp('Up Arrow Pressed!');
-            brick.MoveMotor('AB', 30);
-               
-        case 'downarrow'
-            disp('Down Arrow Pressed!');
-            brick.MoveMotor('AB', -30);
-        
-        case 'leftarrow'
-            disp('Left Arrow Pressed!');
-            brick.MoveMotor('A', 20);  
-     
-        
-        case 'rightarrow'
-            disp('Right Arrow Pressed!');
-            brick.MoveMotor('B', 20); 
+switch color
+    case 5
+        brick.StopMotor('AD','Brake');
+        pause(1.5);
+        brick.MoveMotor('AD', 20);
+        pause(4);
+    case 2
+        while (x < 1)
             
+            switch key
+       case 'uparrow'
+           disp('Up Arrow Pressed!');
+           brick.MoveMotor('AD', 30);
+             
+       case 'downarrow'
+           disp('Down Arrow Pressed!');
+           brick.MoveMotor('AD', -30);
+      
+       case 'leftarrow'
+           disp('Left Arrow Pressed!');
+           brick.MoveMotor('A', 20); 
+   
+      
+       case 'rightarrow'
+           disp('Right Arrow Pressed!');
+           brick.MoveMotor('D', 20);
+          
+      
+       case 0
+           brick.StopMotor('ABD', 'Coast');
+          
+       case 'a'   
+           brick.MoveMotor('B', 30);
+       case 'd'
+           brick.MoveMotor('B', -30);
+      
+       case 'q'
+           x = x + 1;
+           break;
+            end
+        end 
         
-        case 0
-            brick.StopMotor('ABD', 'Coast');
-
-        case 'a'    
-            brick.MoveMotor('D', 30);
-
-        case 'd'
-            brick.MoveMotor('D', -30);
-        
-        case 'q'
-            break;
-    end
+    case 3
+         pause(6);
+         brick.StopMotor('AD','Coast');
+         pause(30);
+            
+    case 4
+     while (x < 1)
+      switch key
+       case 'uparrow'
+           disp('Up Arrow Pressed!');
+           brick.MoveMotor('AD', 30);
+             
+       case 'downarrow'
+           disp('Down Arrow Pressed!');
+           brick.MoveMotor('AD', -30);
+      
+       case 'leftarrow'
+           disp('Left Arrow Pressed!');
+           brick.MoveMotor('A', 20); 
+   
+      
+       case 'rightarrow'
+           disp('Right Arrow Pressed!');
+           brick.MoveMotor('D', 20);
+          
+      
+       case 0
+           brick.StopMotor('ABD', 'Coast');
+          
+       case 'a'   
+           brick.MoveMotor('B', 30);
+       case 'd'
+           brick.MoveMotor('B', -30); 
+       case 'q'
+           x = x + 1;
+           break;
+     
+      end
+     end
+       
+end
+CloseKeyboard();
 end
 
-CloseKeyboard();
+
+
+
+
 
