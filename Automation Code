@@ -8,31 +8,30 @@ disp(touch);
 distance = brick.UltrasonicDist(4); 
 color = brick.ColorCode(1);
 brick.SetColorMode(1, 2);
-brick.MoveMotor('A', 39.6);
-brick.MoveMotor('D', 40);
+brick.MoveMotor('AD', 40);
 %starts both motors at 40% speed
 disp(color);
 x = 0;
 
+
 if (distance >= number2)
-  pause(0.6);
+  pause(0.4);
   brick.StopMotor('AD','Brake');
   brick.MoveMotor('A', 20); 
-  pause(1.65);
+  pause(1.72);
   brick.StopMotor('AD','Brake');%turns for two seconds
   pause(0.5);
-  brick.MoveMotor('AD', 30);
+  brick.MoveMotor('AD', 40);
   pause(3.0);
 end   
 if ((touch) && (distance <= number))    %if the car reaches minimum distance to a wall that requires turning
-   pause(0.3);
+   pause(0.1);
    disp("touch");
    brick.StopMotor('AD','Brake');%car slows to a stp
-   brick.MoveMotor('D', -20);
-   brick.MoveMotor('A', -20)
-   pause(1.67);
+   brick.MoveMotor('AD', -20);
+   pause(1.64);
    brick.MoveMotor('D', 10);       %turns for two seconds
-   pause(1.7);
+   pause(1.75);
    brick.StopMotor('AD','Brake');
    pause(0.5);
 end     
@@ -52,7 +51,7 @@ switch color
     case 5
         brick.StopMotor('AD','Brake');
         pause(1.5);
-        brick.MoveMotor('AD', 20);
+        brick.MoveMotor('AD', 40);
         pause(4);
     case 2
         while (x < 1)
@@ -91,7 +90,7 @@ switch color
         end 
         
     case 3
-         pause(6);
+         pause(2);
          brick.StopMotor('AD','Coast');
          pause(30);
             
@@ -133,6 +132,13 @@ switch color
 end
 CloseKeyboard();
 end
+
+
+
+
+
+
+
 
 
 
